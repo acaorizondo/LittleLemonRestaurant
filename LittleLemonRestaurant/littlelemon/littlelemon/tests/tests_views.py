@@ -15,7 +15,7 @@ class MenuViewTestCase(APITestCase):
         
     # Test the GET request to the SingleMenuItemView APIView
     def test_get_request(self):
-        headers = {'HTTP_AUTHORIZATION': 'Token ' + self.token}
+        headers = {'Authorization': 'Token ' + self.token}
         url = reverse('single_menu', args=[3])
         response = self.client.get(url, **headers)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
