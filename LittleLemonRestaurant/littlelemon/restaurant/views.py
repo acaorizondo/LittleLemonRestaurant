@@ -28,7 +28,7 @@ class MenuItemView(ListCreateAPIView):
 class SingleMenuItemView(RetrieveUpdateDestroyAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
-        
+@permission_classes([IsAuthenticated]) 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
