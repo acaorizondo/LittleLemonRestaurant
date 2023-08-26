@@ -5,15 +5,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
+from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 from django.contrib.auth.models import User
 from . models import Booking, Menu
 from . serializers import BookingSerializer, MenuSerializer, UserSerializer
-
-
-# Create your views here.
 
 # handle home page
 def index(request):
@@ -22,11 +20,11 @@ def index(request):
         'current_year': current_year
     }
     return render(request, 'index.html', context)
-
+@permission_classes([IsAuthenticated])
 class MenuItemView(ListCreateAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
-    
+@permission_classes([IsAuthenticated]) 
 class SingleMenuItemView(RetrieveUpdateDestroyAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
@@ -36,10 +34,11 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     #permission_classes = [IsAuthenticated]
 
+@permission_classes([IsAuthenticated])
 class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
-    #permission_classes = [IsAuthenticated]
+    
     
 # not used class implementation
 """ 
